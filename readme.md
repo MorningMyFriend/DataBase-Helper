@@ -40,22 +40,22 @@
 
 # redis 使用
 
-## 1. dependent libs
+## 1. 安装依赖包
 - sudo apt-get install hiredis-dev
 
-## 1. ssh 链接服务器
+## 2. ssh 链接服务器
 - 在同一个路由器下： ssh root@116.62.174.64
 - 密码： Cz2cpu789
 
-## 2. redis 登录
+## 3. redis 登录
 - redis-cli -h 116.62.174.64 -p 6379 -a redisPSW0328
 - 获取权限： AUTH redisPSW0328
-- 查看任务数量： llen ocr_2001_list
-- 查看任务字段值： lpop ocr_2001_list
+- 查看任务数量命令： llen ocr_2001_list
+- 查看任务字段值命令： lpop ocr_2001_list
 
 # pqsql
 
-## 1. dependent libs
+## 1. 安装依赖包
 - sudo apt-get install libpqxx-dev
 - sudo apt-get install libpq-dev
 
