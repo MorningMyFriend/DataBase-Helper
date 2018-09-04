@@ -19,7 +19,8 @@ link_directories(${CMAKE_SOURCE_DIR}/lib)
 #        mysqlcppconn
 #        jsoncpp)
 
-add_executable(main main.cpp include/interface_database.h src/implementation_database.cpp)
+add_executable(main main.cpp include/interface_database.h src/mysql_helper.cpp)
 target_link_libraries(main
+        hiredis
         mysqlclient
         mysqlcppconn)

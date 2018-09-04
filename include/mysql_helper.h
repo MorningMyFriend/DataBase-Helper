@@ -11,23 +11,25 @@
 
 #include "mysql/mysql.h"
 #include "mysql_connection.h"
-#include "MySqlHelper.h"
+#include "../backup/MySqlHelper.h"
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-class ImplementationMySql : public InterfaceDataBase {
+class MySqlHelper : public InterfaceDataBase {
 public:
-    ImplementationMySql() : _ptrDirver(nullptr), _ptrConnection(nullptr) {};
+    MySqlHelper() : _ptrDirver(nullptr), _ptrConnection(nullptr) {};
 
-    ~ImplementationMySql() {
+    ~MySqlHelper() {
         delete _ptrConnection;
         _ptrConnection = nullptr;
     };
 
 public:
+    bool Connect(const Ip &ip, const Port &port, const Password &password) override {}
+
     bool Connect(const Ip &ip, const Port &port, const Usr &usr, const Password &password) override;
 
     bool
@@ -37,9 +39,9 @@ public:
 
     bool ExcuteCommand(const std::string &command) override;
 
-    bool ExeSQLUpdate(string sql);
+    bool ExeSQLUpdate(std::string sql);
 
-    bool ExeSQLQuery(string sql);
+    bool ExeSQLQuery(std::string sql);
 
 private:
     sql::Driver *_ptrDirver;

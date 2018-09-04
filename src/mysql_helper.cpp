@@ -2,11 +2,11 @@
 // Created by cuizhou on 18-9-3.
 //
 
-#include "implementation_database.h"
+#include "mysql_helper.h"
 
 using namespace std;
 
-bool ImplementationMySql::Connect(const Ip &ip, const Port &port, const Usr &usr, const Password &password) {
+bool MySqlHelper::Connect(const Ip &ip, const Port &port, const Usr &usr, const Password &password) {
     // connect to database server
     if (_ptrConnection != nullptr) {
         delete _ptrConnection;
@@ -29,7 +29,7 @@ bool ImplementationMySql::Connect(const Ip &ip, const Port &port, const Usr &usr
     }
 }
 
-bool ImplementationMySql::Connect(const Ip &ip, const Port &port, const DbName &dbname, const Usr &usr,
+bool MySqlHelper::Connect(const Ip &ip, const Port &port, const DbName &dbname, const Usr &usr,
                                   const Password &password) {
 
     this->Connect(ip, port, usr, password);
@@ -38,7 +38,7 @@ bool ImplementationMySql::Connect(const Ip &ip, const Port &port, const DbName &
     this->EnterDatabse(dbname);
 }
 
-bool ImplementationMySql::EnterDatabse(const DbName &dbName) {
+bool MySqlHelper::EnterDatabse(const DbName &dbName) {
     if (_ptrConnection == nullptr) { return false; }
     try {
         _ptrConnection->setSchema(dbName._dbname.c_str());
@@ -51,7 +51,7 @@ bool ImplementationMySql::EnterDatabse(const DbName &dbName) {
     }
 }
 
-bool ImplementationMySql::ExcuteCommand(const std::string &command) {
+bool MySqlHelper::ExcuteCommand(const std::string &command) {
     if (_ptrConnection == nullptr) { return false; }
     try {
         sql::Statement *stmt = _ptrConnection->createStatement();
@@ -68,7 +68,7 @@ bool ImplementationMySql::ExcuteCommand(const std::string &command) {
     }
 }
 
-bool ImplementationMySql::ExeSQLUpdate(string sql) {
+bool MySqlHelper::ExeSQLUpdate(string sql) {
     try {
         // example:
         sql::PreparedStatement *pstmt;
@@ -86,7 +86,7 @@ bool ImplementationMySql::ExeSQLUpdate(string sql) {
     }
 }
 
-bool ImplementationMySql::ExeSQLQuery(string sql) {
+bool MySqlHelper::ExeSQLQuery(string sql) {
     /* Select in ascending order */
     sql::PreparedStatement *pstmt;
     sql::ResultSet *res;
@@ -102,7 +102,7 @@ bool ImplementationMySql::ExeSQLQuery(string sql) {
     delete pstmt;
 }
 
-void ImplementationMySql::ThrowError(sql::SQLException &e) {
+void MySqlHelper::ThrowError(sql::SQLException &e) {
     cout << "# ERR: SQLException in " << __FILE__ << endl;
     cout << "# ERR: " << e.what() << endl;
     cout << " (MySQL error code: " << e.getErrorCode() << ", SQLState: " << e.getSQLState() << " )" << endl;
