@@ -7,7 +7,7 @@
 using namespace std;
 
 bool RedisHelper::Connect(const Ip &ip, const Port &port, const Password &password) {
-    _conn = make_shared<redisContext>(*(redisConnect(ip._ip.c_str(), std::stoi(port._port))));
+    _conn = shared_ptr<redisContext>(redisConnect(ip._ip.c_str(), std::stoi(port._port)), redisFree);
 //    _conn = redisConnect(ip._ip.c_str(), std::stoi(port._port));
     if (_conn == nullptr) {
         cerr << "connect failed: " << _conn->err << endl;

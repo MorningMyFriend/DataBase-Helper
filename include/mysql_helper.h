@@ -30,6 +30,8 @@ public:
 public:
     bool Connect(const Ip &ip, const Port &port, const Password &password) override {}
 
+    bool Connect(const Ip &ip, const DbName &dbname, const Usr &usr, const Password &password) override {};
+
     bool Connect(const Ip &ip, const Port &port, const Usr &usr, const Password &password) override;
 
     bool

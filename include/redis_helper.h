@@ -27,11 +27,13 @@
 
 class RedisHelper : public InterfaceDataBase {
 public:
-    RedisHelper() : _conn(nullptr, redisFree), _ip(Ip("")), _port(Port("")), _password(Password("")){};
+    RedisHelper() : _conn(nullptr, redisFree), _ip(Ip("")), _port(Port("")), _password(Password("")) {};
 
-    ~RedisHelper(){};
+    ~RedisHelper() {};
 
     bool Connect(const Ip &ip, const Port &port, const Password &password) override;
+
+    bool Connect(const Ip &ip, const DbName &dbname, const Usr &usr, const Password &password) override {};
 
     bool Connect(const Ip &ip, const Port &port, const Usr &usr, const Password &password) override {};
 

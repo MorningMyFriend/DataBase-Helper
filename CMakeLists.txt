@@ -21,6 +21,8 @@ aux_source_directory(src SOURCE_FILES)
 
 add_executable(main main.cpp include/interface_database.h ${SOURCE_FILES})
 target_link_libraries(main
+        pqxx
+        pq
         hiredis
         mysqlclient
         mysqlcppconn)

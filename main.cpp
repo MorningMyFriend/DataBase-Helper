@@ -5,6 +5,7 @@
 #include <iostream>
 #include "mysql_helper.h"
 #include "redis_helper.h"
+#include "pqsql_helper.h"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ void clear(item *it){
 
 void test_mysql(){
     MySqlHelper mySqlHelper = MySqlHelper();
-//    mySqlHelper.Connect(Ip("127.0.0.1"), Port("3306"), Usr("root"), Password("cuizhou"));
+    mySqlHelper.Connect(Ip("127.0.0.1"), Port("3306"), Usr("root"), Password("cuizhou"));
 
     mySqlHelper.ExcuteCommand("CREATE DATABASE test;");
     mySqlHelper.EnterDatabse(DbName("test"));
@@ -38,7 +39,26 @@ void test_mysql(){
 void test_redis(){
     RedisHelper redisHelper = RedisHelper();
     redisHelper.Connect(Ip("116.62.174.64"),Port("6379"),Password("redisPSW0328"));
+}
 
+void test_pqsql(){
+    PqsqlHelper pqsqlHelper = PqsqlHelper();
+    pqsqlHelper.Connect(Ip("116.62.174.64"),DbName("cuizhou"),Usr("postgres"),Password("postgresPSW0328"));
+}
+
+void test_interface(){
+    shared_ptr<InterfaceDataBase> interface = make_shared<MySqlHelper>(MySqlHelper());
+    // mysql
+    cout << "mysql >> ";
+    interface->Connect(Ip("127.0.0.1"), Port("3306"), Usr("root"), Password("cuizhou"));
+    // redis
+    cout << "redis >> ";
+    interface = make_shared<RedisHelper>(RedisHelper());
+    interface->Connect(Ip("116.62.174.64"),Port("6379"),Password("redisPSW0328"));
+    // pqsql
+    cout << "pqsql >> ";
+    interface = make_shared<PqsqlHelper>(PqsqlHelper());
+    interface->Connect(Ip("116.62.174.64"),DbName("cuizhou"),Usr("postgres"),Password("postgresPSW0328"));
 }
 
 void test_shared_ptr(){
@@ -65,7 +85,10 @@ void test_shared_ptr(){
 int main(){
 //    test_shared_ptr();
 //    test_mysql();
-    test_redis();
+//    test_redis();
+//    test_pqsql();
+    test_interface();
 }
+
 
 

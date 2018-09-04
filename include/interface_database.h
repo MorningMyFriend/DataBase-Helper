@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+
 struct Ip {
     explicit Ip(std::string ip) : _ip(ip) {}
 
@@ -44,10 +45,12 @@ class InterfaceDataBase {
 public:
     InterfaceDataBase() = default;
 
-    virtual ~InterfaceDataBase(){};
+    virtual ~InterfaceDataBase() {};
 
 public:
     virtual bool Connect(const Ip &ip, const Port &port, const Password &password) = 0;
+
+    virtual bool Connect(const Ip &ip, const DbName &dbname, const Usr &usr, const Password &password) = 0;
 
     virtual bool Connect(const Ip &ip, const Port &port, const Usr &usr, const Password &password) = 0;
 
