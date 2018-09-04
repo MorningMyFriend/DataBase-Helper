@@ -39,7 +39,9 @@ bool MySqlHelper::Connect(const Ip &ip, const Port &port, const DbName &dbname, 
 }
 
 bool MySqlHelper::EnterDatabse(const DbName &dbName) {
-    if (_ptrConnection == nullptr) { return false; }
+    if (_ptrConnection == nullptr) {
+        cout << "connection null" << endl;
+        return false; }
     try {
         _ptrConnection->setSchema(dbName._dbname.c_str());
         cout << "Entered Databse: " << dbName._dbname << endl;
@@ -52,7 +54,9 @@ bool MySqlHelper::EnterDatabse(const DbName &dbName) {
 }
 
 bool MySqlHelper::ExcuteCommand(const std::string &command) {
-    if (_ptrConnection == nullptr) { return false; }
+    if (_ptrConnection == nullptr) {
+        cout << "connection null" << endl;
+        return false; }
     try {
         sql::Statement *stmt = _ptrConnection->createStatement();
         stmt->execute(command.c_str());
